@@ -9,6 +9,8 @@ routes.get("/teste", (req, res) => {
 });
 
 routes.get("/produtos", ProdutoController.index);
+routes.get("/produtos/busca", ProdutoController.show);
+routes.delete("/produto/deletar/:_id", ProdutoController.destroy);
 routes.post("/produto-novo", ProdutoController.create);
 
 module.exports = routes;
