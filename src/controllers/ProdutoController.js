@@ -3,8 +3,18 @@ const Produto = require("../models/Produto");
 module.exports = {
   //Busca TODOS
   async index(req, res) {
-    const response = await Produto.find();
+    //FEITO NO BRAÇO
+    // let query = {};
+    // let page = req.query.page;
+    // let limit = 7;
+    // let skip = limit * (page - 1);
 
+    // const response = await Produto.find(query).skip(skip).limit(limit);
+
+    //USANDO MONGOOSE-PAGINATE
+    const { page = 1 } = req.query;
+    const response = await Produto.paginate({}, { page, limit: 7 });
+    console.log(response)
     return res.json(response);
   },
 
@@ -39,7 +49,6 @@ module.exports = {
       const { _id } = req.params;
       const response = await Produto.deleteOne({ _id: _id });
       return res.json(response);
-
     } catch (error) {
       return res.status(400).json(error);
     }
