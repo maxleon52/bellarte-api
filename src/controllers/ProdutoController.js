@@ -14,14 +14,14 @@ module.exports = {
     //USANDO MONGOOSE-PAGINATE
     const { page = 1 } = req.query;
     const response = await Produto.paginate({}, { page, limit: 7 });
-    console.log(response)
+    console.log(response);
     return res.json(response);
   },
 
   //Busca UM
   async show(req, res) {
-    const { name } = req.query;
-    const response = await Produto.find({ name: new RegExp(name, "i") });
+    const { _id } = req.params;
+    const response = await Produto.find({ _id: _id });
 
     return res.json(response);
   },
@@ -43,6 +43,24 @@ module.exports = {
 
     return res.json(response);
   },
+
+  //Atualiza UM
+  async update(req, res) {
+    try {
+      const product = await Produto.findByIdAndUpdate(
+        req.params._id,
+        req.body,
+        {
+          new: true
+        }
+      );
+
+      return res.json(product);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  },
+
   //Deletar UM
   async destroy(req, res) {
     try {
