@@ -13,7 +13,12 @@ module.exports = {
 
     //USANDO MONGOOSE-PAGINATE
     const { page = 1 } = req.query;
-    const response = await Produto.paginate({}, { page, limit: 7 });
+    const options = {
+      page: page,
+      limit: 7,
+      sort: { createdAt: -1 }
+    };
+    const response = await Produto.paginate({}, options);
     console.log(response);
     return res.json(response);
   },
