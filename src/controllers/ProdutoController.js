@@ -65,8 +65,8 @@ module.exports = {
   async destroy(req, res) {
     try {
       const { _id } = req.params;
-      const response = await Produto.deleteOne({ _id: _id });
-      return res.json(response);
+      const response = await Produto.findByIdAndDelete({ _id: _id });
+      return res.json({ message: "Produto deletado com sucesso!" });
     } catch (error) {
       return res.status(400).json(error);
     }
