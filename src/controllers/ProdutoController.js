@@ -44,7 +44,36 @@ module.exports = {
         message: "Ja existe um produto cadastrado com esse nome!"
       });
     }
-    const response = await Produto.create(req.body);
+
+    const { filename: photo } = req.file;
+    const {
+      name,
+      width,
+      height,
+      color,
+      qtd_days_todo,
+      ref,
+      brand,
+      qtd_ball_wool,
+      num_needle,
+      link,
+      comments
+    } = req.body;
+
+    const response = await Produto.create({
+      name,
+      width,
+      height,
+      color,
+      qtd_days_todo,
+      ref,
+      brand,
+      qtd_ball_wool,
+      num_needle,
+      link,
+      comments,
+      photo
+    });
 
     return res.json(response);
   },
