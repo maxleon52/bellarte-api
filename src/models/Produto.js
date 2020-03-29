@@ -50,9 +50,18 @@ const ProdutoSchema = new Schema(
     }
   },
   {
+    toJSON: {
+      virtuals: true
+    }
+  },
+  {
     timestamps: true
   }
 );
+
+ProdutoSchema.virtual("photo_url").get(function() {
+  return `http://localhost:3333/files/${this.photo}`;
+});
 
 ProdutoSchema.plugin(mongoosePaginate);
 
