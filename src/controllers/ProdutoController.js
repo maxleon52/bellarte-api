@@ -15,7 +15,7 @@ module.exports = {
     const { page = 1 } = req.query;
     const options = {
       page: page,
-      limit: 7,
+      limit: 6,
       sort: { createdAt: -1 }
     };
     const response = await Produto.paginate({}, options);
@@ -45,7 +45,11 @@ module.exports = {
       });
     }
 
-    const { filename: photo } = req.file;
+    let photo = undefined;
+    if (req.file) {
+      photo = req.file.filename;
+    }
+
     const {
       name,
       width,
@@ -88,7 +92,7 @@ module.exports = {
           new: true
         }
       );
-
+      console.log(product);
       return res.json(product);
     } catch (error) {
       return res.status(400).json(error);
